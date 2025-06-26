@@ -11,7 +11,6 @@ export const createFood = async (req: Request, res: Response) => {
       ingredients: ingredients,
       category,
     }).save();
-
     res.status(200).send({ success: true, Food });
   } catch (error) {
     res.status(404).send({ messege: "api error", error });
