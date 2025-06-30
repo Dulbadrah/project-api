@@ -1,7 +1,6 @@
 
 
 import { Request, Response } from "express";
-import foodCategory from "../../Model/foodCategory";
 import userModel from "../../Model/user";
 
 export const createUser = async (req: Request, res: Response) => {
@@ -14,7 +13,7 @@ export const createUser = async (req: Request, res: Response) => {
       password: password,
       phoneNumber: phoneNumber,
       address: address,
-      isVerified: isVerified
+      isVerified: isVerified,
     }).save();
 
 

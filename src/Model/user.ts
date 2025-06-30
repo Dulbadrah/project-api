@@ -12,5 +12,5 @@ const userSchema = new Schema({
   createdAt: { type: Date, default: Date.now() },
 });
 
-const userModel = model("userData", userSchema);
+const userModel = model("users", userSchema);
 export default userModel;

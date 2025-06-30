@@ -4,10 +4,6 @@ import foodCategory from "../../Model/foodCategory";
 export const createFoodCategory = async (req: Request, res: Response) => {
   const { categoryName } = req.body;
 
-  console.log({
-    categoryName,
-  });
-
   try {
     const FoodCategory = await new foodCategory({
       categoryName: categoryName,
