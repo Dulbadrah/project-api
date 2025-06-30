@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import orderFoodModel from "../../Model/orderFood";
 
-export const getFoodOrder = async (req: Request, res: Response) => {
+export const getFoodOrderById = async (req: Request, res: Response) => {
     const {Id}= req.params
   try {
     const orderFoodId = await orderFoodModel.findById(Id);
