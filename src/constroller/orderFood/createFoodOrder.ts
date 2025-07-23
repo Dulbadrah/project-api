@@ -2,10 +2,15 @@ import { Request, Response } from "express";
 import orderFoodModel from "../../Model/orderFood";
 
 export const createFoodOrder = async (req: Request, res: Response) => {
-  const { totalPrice, foodOrderItems, user, status } = req.body;
+  const { totalPrice, foodOrderItems, status } = req.body;
+
+  if (!totalPrice || !foodOrderItems) {
+    res.status(404).send({ messege: "invalid input" });
+    return;
+  }
+
   try {
     const createFoodOrder = await new orderFoodModel({
-      user,
       totalPrice,
       foodOrderItems,
       status,

@@ -14,7 +14,6 @@ export const resetPassword = async (req: Request, res: Response) => {
       },
       { new: true }
     );
-    console.log(updatePassword);
 
     res.status(200).send({ success: true, updatePassword });
   } catch (error) {
