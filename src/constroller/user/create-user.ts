@@ -1,24 +1,25 @@
 import { Request, Response } from "express";
-import userModel from "../../Model/user";
+
 import bcrypt from "bcrypt";
+import userModel from "../../Model/user";
 
 export const createUser = async (req: Request, res: Response) => {
-  const { email, password, phoneNumber, address, isVerified } = req.body;
+  const { email, password, address, phoneNumber } = req.body;
 
-  const hashedPasswort = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
-    const userData = await new userModel({
-      email: email,
-      password: hashedPasswort,
-      phoneNumber: phoneNumber,
-      address: address,
-      isVerified: isVerified,
-    }).save();
+    const user = await userModel.create({
+      email,
+      password: hashedPassword,
+      address,
+      phoneNumber,
+      isVerified: false,
+    });
 
-    console.log(userData);
-    res.status(200).send({ success: true, userData });
+    res.status(200).json({ success: true, user });
   } catch (error) {
-    res.status(404).send({ messege: "api error", error });
+    console.log("error: ", error);
+    res.status(500).json({ success: false, error });
   }
 };

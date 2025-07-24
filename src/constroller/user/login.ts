@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { createAccessToken } from "../../utils/token";
 import userModel from "../../Model/user";
 
 export const loginUser = async (req: Request, res: Response) => {
@@ -13,7 +13,7 @@ export const loginUser = async (req: Request, res: Response) => {
     });
 
     if (!user) {
-      res.status(400).json({ message: "email not found" });
+      res.status(400).json({ message: "try again" });
       return;
     }
 
@@ -22,14 +22,11 @@ export const loginUser = async (req: Request, res: Response) => {
     if (isMatch) {
       const data = { userId: user._id, role: user.role, email: user.email };
 
-      const secret = "super-secret-123";
-      const hour = Math.floor(Date.now() / 1000) + 60 * 60;
-
-      const accessToken = jwt.sign({ exp: hour, data }, secret);
+      const accessToken = createAccessToken(data);
 
       res.status(200).json({ success: true, accessToken });
     } else {
-      res.status(400).json({ message: "passwort not found" });
+      res.status(400).json({ message: "try again" });
     }
   } catch (error) {
     console.log("error: ", error);
